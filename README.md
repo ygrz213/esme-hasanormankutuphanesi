@@ -16,3 +16,4 @@ Okul kütüphanesi yönetimi uygulaması.
 - Uygulamanın logosu ([Book icon created by Freepik - Flaticon](https://www.flaticon.com/free-icon/open-book_171322))
 - Artı ikonu ([Plus icon created by Freepik - Flaticon](https://www.flaticon.com/free-icon/plus_748113))
 - Ödünç verilmiş kitaplar butonundaki ikon ([Exchange icon created by mavadee - Flaticon](https://www.flaticon.com/free-icon/exchange_3580097))
+- Arama ikonu ([Search icon created by Good Ware - Flaticon](https://www.flaticon.com/free-icon/magnifying-glass_1086933))
