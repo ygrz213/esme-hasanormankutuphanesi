@@ -20,6 +20,7 @@ class application():
         lent_books.pack(side = 'top', ipadx = 3, ipady = 1)
 
 root = ThemedTk(theme = 'arc')
+root.wm_iconbitmap('icons/book.ico')
 root.title('Esme Hasan ve Orman Kütüphanesi')
 widgets = application(root)
 root.mainloop()
