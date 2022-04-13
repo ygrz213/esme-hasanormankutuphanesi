@@ -1,4 +1,5 @@
 from tkinter import ttk
+from tkinter import messagebox
 import tkinter as tk
 import database_handler as dbh
 
@@ -36,7 +37,7 @@ class add_book_gui(tk.Toplevel):
                               text = 'Ekle',
                               cursor = 'hand2',
                               style = "Bold.TButton",
-                              command = lambda: [dbh.dbhandler.add_book(genre.get(), book_name.get(), writer.get()), self.destroy()])
+                              command = lambda: None if add_book_gui.check_entries(genre.get(), book_name.get(), writer.get()) else [dbh.dbhandler.add_book(genre.get(), book_name.get(), writer.get()), self.destroy()])
         add_book.pack(pady = (5, 0), side = 'bottom')
 
         writer = ttk.Entry(self, justify = 'center')
@@ -48,3 +49,16 @@ class add_book_gui(tk.Toplevel):
         book_name.insert(0, 'Kitap adı')
         book_name.bind('<FocusIn>', lambda x: on_entry_click(book_name, 'Kitap adı')); book_name.bind('<FocusOut>', lambda x: on_focusout(book_name, 'Kitap adı'))
         book_name.pack(fill = 'x', side = 'bottom')
+
+    def check_entries(genre, book_name, writer):
+        empty_entries_list = []
+
+        for empty_entries in set(['', 'Kitap adı', 'Yazarın veya çevirenin adı']) & set([genre, book_name, writer]):
+            if empty_entries == '':
+                empty_entries_list.append('Tür')
+            else:
+                empty_entries_list.append(empty_entries)
+
+        if empty_entries_list:
+            messagebox.showerror('HATA', 'Geçersiz veri/veriler: ' + ', '.join(empty_entries_list))
+            return True
