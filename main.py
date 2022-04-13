@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import book_handler as bkh
 from ttkthemes import ThemedTk
 
 class application():
@@ -8,7 +9,7 @@ class application():
         button_frame.pack(side = 'top', fill = 'x')
 
         global add_book_icon; add_book_icon = tk.PhotoImage(file = 'icons/plus.png')
-        add_book = ttk.Button(button_frame, text = '   Kitap ekle', image = add_book_icon, compound = 'left')
+        add_book = ttk.Button(button_frame, text = '   Kitap ekle', image = add_book_icon, compound = 'left', command = bkh.add_book_gui)
         add_book.pack(side = 'left', ipadx = 4, ipady = 2)
 
         global search_book_icon; search_book_icon = tk.PhotoImage(file = 'icons/search.png')
