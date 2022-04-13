@@ -7,7 +7,7 @@ class book_db():
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS Kitaplar (Tür, Numara, Ad, Yazar veya Çeviren)''')
 
     def add_book(self, genre, book_name, writer):
-        self.cursor.execute(f'''INSERT INTO Kitaplar VALUES ('{genre}', '{self.get_last_booknumber() + 1}', '{book_name}', '{writer}')''')
+        self.cursor.execute(f'''INSERT INTO Kitaplar VALUES ('{genre}', '{self.get_last_booknumber() + 1}', "{book_name}", "{writer}")''')
         self.database.commit()
 
     def get_last_booknumber(self):
