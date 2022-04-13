@@ -1,4 +1,5 @@
 from tkinter import ttk
+from shutil import rmtree
 from ttkthemes import ThemedTk
 import tkinter as tk
 import book_handler as bkh
@@ -8,6 +9,7 @@ class application():
         self.master = master
         self.master.wm_iconbitmap('icons/book.ico')
         self.master.title('Esme Hasan ve Orman Kütüphanesi')
+        self.master.protocol('WM_DELETE_WINDOW', self.delete_cache)
 
         self.widgets()
 
@@ -36,6 +38,13 @@ class application():
                                 image = lent_books_icon,
                                 compound = 'top')
         lent_books.pack(side = 'top', ipadx = 3, ipady = 1)
+
+    def delete_cache(self):
+        try:
+            rmtree('__pycache__')
+        except FileNotFoundError:
+            pass
+        self.master.destroy()
 
 root = ThemedTk(theme = 'arc')
 setup = application(root)
