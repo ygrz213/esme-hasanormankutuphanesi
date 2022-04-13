@@ -1,6 +1,6 @@
 import sqlite3 as sql
 
-class edit_db():
+class book_db():
     def __init__(self):
         self.database = sql.connect('books.db')
         self.cursor = self.database.cursor()
@@ -13,9 +13,9 @@ class edit_db():
     def get_last_booknumber(self):
         self.cursor.execute('''SELECT max(ROWID) FROM Kitaplar''')
         result = self.cursor.fetchall()[0][0]
+
         if result is None:
             return 0
-        else:
-            return result
+        return result
 
-dbhandler = edit_db()
+dbhandler = book_db()
