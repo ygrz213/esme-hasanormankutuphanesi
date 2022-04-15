@@ -29,7 +29,7 @@ class add_book_gui(tk.Toplevel):
         genre_frame = tk.Frame(self)
         genre_frame.pack()
         ttk.Label(genre_frame, text = 'Tür:').pack(padx = (0, 5), side = 'left')
-        genre = ttk.Combobox(genre_frame, state = 'readonly', values = ['Hikâye', 'Roman'])
+        genre = ttk.Combobox(genre_frame, state = 'readonly', values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'])
         genre.pack(side = 'left')
 
         add_button_style = ttk.Style(); add_button_style.configure('Bold.TButton', font = 'Helvetica 10 bold')        # Style to make button bold
