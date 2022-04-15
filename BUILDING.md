@@ -24,7 +24,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 ```
 
-satırlarını `main.py`'nin başına ekleyin.
+satırlarını `main.py` ve `book_handler.py`'nin başına ekleyin.
 
 
 **4-**
