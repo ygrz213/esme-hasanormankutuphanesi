@@ -11,6 +11,9 @@ class book_db():
         self.cursor.execute(f'''INSERT INTO '{genre}' VALUES ('{self.get_last_booknumber(genre) + 1}', "{book_name}", "{writer}")''')
         self.database.commit()
 
+    def filter_category(self, category):
+        return self.cursor.execute(f'''SELECT * FROM '{category}' ''').fetchall()
+
     def get_last_booknumber(self, genre):
         self.cursor.execute(f'''SELECT max(ROWID) FROM '{genre}' ''')
         result = self.cursor.fetchall()[0][0]

@@ -3,6 +3,7 @@ from shutil import rmtree
 from ttkthemes import ThemedTk
 import tkinter as tk
 import book_handler as bkh
+import table_handler as tbh
 
 class application():
     def __init__(self, master):
@@ -38,6 +39,17 @@ class application():
                                 image = lent_books_icon,
                                 compound = 'top')
         lent_books.pack(side = 'top', ipadx = 3, ipady = 1)
+
+        category = ttk.Combobox(values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'],
+                                state = 'readonly')
+        category.bind('<<ComboboxSelected>>', lambda x: tbh.update_table(category.get(), table_tree))
+        category.pack(side = 'right', anchor = 'nw')
+        ttk.Label(text = '   Filtre:   ').pack(side = 'right', anchor = 'nw')
+
+        table_tree = ttk.Treeview(columns = ('Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
+        table_tree.heading('Numara', text = 'Numara'); table_tree.heading('Kitap adı', text = 'Kitap adı'); table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
+        table_tree.column('Numara', anchor = 'center'); table_tree.column('Kitap adı', anchor = 'center'); table_tree.column('Yazar veya Çeviren', anchor = 'center')
+        table_tree.pack(fill = 'both', expand = True)
 
     def delete_cache(self):
         try:
