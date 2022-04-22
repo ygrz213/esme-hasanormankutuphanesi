@@ -5,10 +5,10 @@ class book_db():
         self.database = sql.connect('books.db')
         self.cursor = self.database.cursor()
         for genre in ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin']:
-            self.cursor.execute(f'''CREATE TABLE IF NOT EXISTS {genre} (Numara, Ad, Yazar veya Çeviren)''')
+            self.cursor.execute(f'''CREATE TABLE IF NOT EXISTS {genre} (Tür, Numara, Ad, Yazar veya Çeviren)''')
 
     def add_book(self, genre, book_name, writer):
-        self.cursor.execute(f'''INSERT INTO '{genre}' VALUES ('{self.get_last_booknumber(genre) + 1}', "{book_name}", "{writer}")''')
+        self.cursor.execute(f'''INSERT INTO '{genre}' VALUES ('{genre}', '{self.get_last_booknumber(genre) + 1}', "{book_name}", "{writer}")''')
         self.database.commit()
 
     def filter_category(self, category):

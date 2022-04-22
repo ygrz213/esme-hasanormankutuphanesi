@@ -30,7 +30,8 @@ class application():
         search_book = ttk.Button(button_frame,
                                  text = 'Kitap ara   ',
                                  image = search_book_icon,
-                                 compound = 'right')
+                                 compound = 'right',
+                                 command = lambda: bkh.search_book_gui(table_tree))
         search_book.pack(side = 'right', ipadx = 3, ipady = 1)
 
         global lent_books_icon; lent_books_icon = tk.PhotoImage(file = 'icons/lend.png')
@@ -42,13 +43,14 @@ class application():
 
         category = ttk.Combobox(values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'],
                                 state = 'readonly')
-        category.bind('<<ComboboxSelected>>', lambda x: tbh.update_table(category.get(), table_tree))
+        category.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(category.get(), table_tree))
         category.pack(side = 'right', anchor = 'nw')
         ttk.Label(text = '   Filtre:   ').pack(side = 'right', anchor = 'nw')
 
-        table_tree = ttk.Treeview(columns = ('Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
-        table_tree.heading('Numara', text = 'Numara'); table_tree.heading('Kitap adı', text = 'Kitap adı'); table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
-        table_tree.column('Numara', anchor = 'center'); table_tree.column('Kitap adı', anchor = 'center'); table_tree.column('Yazar veya Çeviren', anchor = 'center')
+        global table_tree
+        table_tree = ttk.Treeview(columns = ('Tür', 'Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
+        table_tree.heading('Tür', text = 'Tür'); table_tree.heading('Numara', text = 'Numara'); table_tree.heading('Kitap adı', text = 'Kitap adı'); table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
+        table_tree.column('Tür', anchor = 'center'); table_tree.column('Numara', anchor = 'center'); table_tree.column('Kitap adı', anchor = 'center'); table_tree.column('Yazar veya Çeviren', anchor = 'center')
         table_tree.pack(fill = 'both', expand = True)
 
     def delete_cache(self):
