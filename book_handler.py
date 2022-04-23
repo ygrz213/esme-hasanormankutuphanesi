@@ -110,26 +110,31 @@ class edit_book_gui(add_book_gui):
         self.resizable(False, False)
         self.focus()
 
+        self.unedited_values = tree.item(tree.selection())['values']
+        if not self.unedited_values:
+            self.destroy()
+            messagebox.showerror('HATA', 'Kitaba erişilemedi.')
+            return
+
         self.widgets(tree)
 
     def widgets(self, tree):
-        unedited_values = tree.item(tree.selection())['values']
 
         edit_book = ttk.Button(self,
                                text = 'Tamam',
                                cursor = 'hand2',
                                style = "Bold.TButton",
-                               command = lambda: [dbh.dbhandler.edit_book(unedited_values[0], self.genre.get(), unedited_values[2], self.book_name.get(), self.writer.get()), self.destroy()])
+                               command = lambda: [dbh.dbhandler.edit_book(self.unedited_values[0], self.genre.get(), self.unedited_values[2], self.book_name.get(), self.writer.get()), self.destroy()])
         edit_book.pack(pady = (5, 0), side = 'bottom')
 
         super().widgets()
 
-        self.genre.current(['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'].index(unedited_values[0]))
+        self.genre.current(['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'].index(self.unedited_values[0]))
 
-        self.writer.delete(0, 'end'); self.writer.insert(0, unedited_values[3])
-        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, unedited_values[3])); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, unedited_values[3]))
+        self.writer.delete(0, 'end'); self.writer.insert(0, self.unedited_values[3])
+        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, self.unedited_values[3])); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, self.unedited_values[3]))
 
-        self.book_name.delete(0, 'end'); self.book_name.insert(0, unedited_values[2])
-        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, unedited_values[2])); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, unedited_values[2]))
+        self.book_name.delete(0, 'end'); self.book_name.insert(0, self.unedited_values[2])
+        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, self.unedited_values[2])); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, self.unedited_values[2]))
 
         self.add_book.destroy()
