@@ -3,6 +3,7 @@ from shutil import rmtree
 from ttkthemes import ThemedTk
 import tkinter as tk
 import book_handler as bkh
+import database_handler as dbh
 import table_handler as tbh
 
 class application():
@@ -57,7 +58,7 @@ class application():
     def pop_up(self, event):
         menu = tk.Menu(tearoff = 0)
         menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(table_tree))
-        menu.add_command(label = 'Sil')
+        menu.add_command(label = 'Sil', command = lambda: dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values'][0], table_tree.item(table_tree.selection())['values'][2]))
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:
