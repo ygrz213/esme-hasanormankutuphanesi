@@ -30,25 +30,25 @@ class add_book_gui(tk.Toplevel):
         genre_frame = tk.Frame(self)
         genre_frame.pack()
         ttk.Label(genre_frame, text = 'Tür:').pack(padx = (0, 5), side = 'left')
-        genre = ttk.Combobox(genre_frame, state = 'readonly', values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'])
-        genre.pack(side = 'left')
+        self.genre = ttk.Combobox(genre_frame, state = 'readonly', values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'])
+        self.genre.pack(side = 'left')
 
-        add_book = ttk.Button(self,
+        self.add_book = ttk.Button(self,
                               text = 'Ekle',
                               cursor = 'hand2',
                               style = "Bold.TButton",
-                              command = lambda: None if add_book_gui.check_entries(genre.get(), book_name.get(), writer.get()) else [dbh.dbhandler.add_book(genre.get(), book_name.get(), writer.get()), self.destroy()])
-        add_book.pack(pady = (5, 0), side = 'bottom')
+                              command = lambda: None if add_book_gui.check_entries(self.genre.get(), self.book_name.get(), self.writer.get()) else [dbh.dbhandler.add_book(self.genre.get(), self.book_name.get(), self.writer.get()), self.destroy()])
+        self.add_book.pack(pady = (5, 0), side = 'bottom')
 
-        writer = ttk.Entry(self, justify = 'center')
-        writer.insert(0, 'Yazarın veya çevirenin adı')
-        writer.bind('<FocusIn>', lambda x: on_entry_click(writer, 'Yazarın veya çevirenin adı')); writer.bind('<FocusOut>', lambda x: on_focusout(writer, 'Yazarın veya çevirenin adı'))
-        writer.pack(fill = 'x', side = 'bottom')
+        self.writer = ttk.Entry(self, justify = 'center')
+        self.writer.insert(0, 'Yazarın veya çevirenin adı')
+        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, 'Yazarın veya çevirenin adı')); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, 'Yazarın veya çevirenin adı'))
+        self.writer.pack(fill = 'x', side = 'bottom')
 
-        book_name = ttk.Entry(self, justify = 'center')
-        book_name.insert(0, 'Kitap adı')
-        book_name.bind('<FocusIn>', lambda x: on_entry_click(book_name, 'Kitap adı')); book_name.bind('<FocusOut>', lambda x: on_focusout(book_name, 'Kitap adı'))
-        book_name.pack(fill = 'x', side = 'bottom')
+        self.book_name = ttk.Entry(self, justify = 'center')
+        self.book_name.insert(0, 'Kitap adı')
+        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, 'Kitap adı')); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, 'Kitap adı'))
+        self.book_name.pack(fill = 'x', side = 'bottom')
 
     def check_entries(genre, book_name, writer):
         empty_entries_list = []
@@ -99,3 +99,38 @@ def search_book_gui(tree_to_showresult):
                              style = "Bold.TButton",
                              command = lambda: tbh.filter_table(genre.get(), number.get(), book_name.get(), writer.get(), tree_to_showresult))
     search_book.pack(pady = (5, 0), side = 'bottom')
+
+
+class edit_book_gui(add_book_gui):
+    def __init__(self, tree):
+        tk.Toplevel.__init__(self)
+        self.wm_iconbitmap('icons/book.ico')
+        self.title('Esme Hasan ve Orman Kütüphanesi')
+        self.attributes('-topmost', True)
+        self.resizable(False, False)
+        self.focus()
+
+        self.widgets(tree)
+
+    def widgets(self, tree):
+        unedited_values = tree.item(tree.selection())['values']
+        print(unedited_values)
+
+        edit_book = ttk.Button(self,
+                               text = 'Tamam',
+                               cursor = 'hand2',
+                               style = "Bold.TButton",
+                               command = lambda: [dbh.dbhandler.edit_book(unedited_values[0], self.genre.get(), unedited_values[2], self.book_name.get(), self.writer.get()), self.destroy()])
+        edit_book.pack(pady = (5, 0), side = 'bottom')
+
+        super().widgets()
+
+        self.genre.current(['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'].index(unedited_values[0]))
+
+        self.writer.delete(0, 'end'); self.writer.insert(0, unedited_values[3])
+        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, unedited_values[3])); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, unedited_values[3]))
+
+        self.book_name.delete(0, 'end'); self.book_name.insert(0, unedited_values[2])
+        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, unedited_values[2])); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, unedited_values[2]))
+
+        self.add_book.destroy()

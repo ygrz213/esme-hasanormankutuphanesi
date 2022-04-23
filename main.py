@@ -51,7 +51,17 @@ class application():
         table_tree = ttk.Treeview(columns = ('Tür', 'Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
         table_tree.heading('Tür', text = 'Tür'); table_tree.heading('Numara', text = 'Numara'); table_tree.heading('Kitap adı', text = 'Kitap adı'); table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
         table_tree.column('Tür', anchor = 'center'); table_tree.column('Numara', anchor = 'center'); table_tree.column('Kitap adı', anchor = 'center'); table_tree.column('Yazar veya Çeviren', anchor = 'center')
+        table_tree.bind('<Button-3>', self.pop_up)
         table_tree.pack(fill = 'both', expand = True)
+
+    def pop_up(self, event):
+        menu = tk.Menu(tearoff = 0)
+        menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(table_tree))
+        menu.add_command(label = 'Sil')
+        try:
+            menu.tk_popup(event.x_root, event.y_root)
+        finally:
+            menu.grab_release()
 
     def delete_cache(self):
         try:
