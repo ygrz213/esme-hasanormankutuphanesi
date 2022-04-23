@@ -1,5 +1,5 @@
-from tkinter import ttk
 from shutil import rmtree
+from tkinter import ttk
 from ttkthemes import ThemedTk
 import tkinter as tk
 import book_handler as bkh

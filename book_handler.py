@@ -1,5 +1,5 @@
-from tkinter import ttk
 from tkinter import messagebox
+from tkinter import ttk
 import tkinter as tk
 import database_handler as dbh
 import table_handler as tbh
