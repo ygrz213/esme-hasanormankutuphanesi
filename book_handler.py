@@ -114,7 +114,6 @@ class edit_book_gui(add_book_gui):
 
     def widgets(self, tree):
         unedited_values = tree.item(tree.selection())['values']
-        print(unedited_values)
 
         edit_book = ttk.Button(self,
                                text = 'Tamam',

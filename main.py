@@ -71,5 +71,8 @@ class application():
         self.master.destroy()
 
 root = ThemedTk(theme = 'arc')
+
 setup = application(root)
+ttk.Style().configure('Bold.TButton', font = 'Helvetica 10 bold')
+
 root.mainloop()
