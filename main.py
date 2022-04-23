@@ -46,7 +46,7 @@ class application():
                                 state = 'readonly')
         category.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(category.get(), table_tree))
         category.pack(side = 'right', anchor = 'nw')
-        ttk.Label(text = '   Filtre:   ').pack(side = 'right', anchor = 'nw')
+        tk.Label(text = 'Filtre:', bg = 'SystemButtonFace').pack(padx = 3, side = 'right', anchor = 'nw')
 
         global table_tree
         table_tree = ttk.Treeview(columns = ('Tür', 'Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
