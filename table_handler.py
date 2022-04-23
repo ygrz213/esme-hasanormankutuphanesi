@@ -23,19 +23,19 @@ SELECT * FROM Yetişkin
         query += f'{genre}\n'
 
     if number != 'Numara':        # If number is changed
-        query = query.replace('\n', f''' WHERE Numara = {number}\n''')        # Change end of line as "WHERE Numara = {number}"
+        query = query.replace('\n', f''' WHERE Numara = '{number}'\n''')        # Change end of line as "WHERE Numara = {number}"
     if book_name != 'Kitap adı':
-        if f''' WHERE Numara = {number}\n''' in query:        # If number is changed
+        if f''' WHERE Numara = '{number}'\n''' in query:        # If number is changed
             query = query.replace('\n', f''' AND\n''')        # Add "and" operator
             query = query.replace('\n', f''' Ad = '{book_name}'\n''')        # Change end of line as "Ad = '{book_name}'"
         else:        # If number is not
             query = query.replace('\n', f''' WHERE Ad = '{book_name}'\n''')        # Add "Ad = '{book_name}'" with WHERE statement
     if writer != 'Yazarın veya çevirenin adı':
-        if f''' Ad = '{book_name}'\n''' in query or f''' WHERE Numara = {number}\n''' in query:
+        if f''' Ad = '{book_name}'\n''' in query or f''' WHERE Numara = '{number}'\n''' in query:
             query = query.replace('\n', f''' AND\n''')
-            query = query.replace('\n', f''' "Yazar veya Çeviren" = '{writer}'\n''')
+            query = query.replace('\n', f''' Yazar = '{writer}'\n''')
         else:
-            query = query.replace('\n', f''' WHERE "Yazar veya Çeviren" = '{writer}'\n''')
+            query = query.replace('\n', f''' WHERE Yazar = '{writer}'\n''')
 
     unioned_queries = []
     for single_query in query[:-2].splitlines(True)[:-1]:        # query[:-2].splitlines(True)[:-1]  query[:-2] -->query without last "\n"
