@@ -58,7 +58,7 @@ class application():
     def pop_up(self, event):
         menu = tk.Menu(tearoff = 0)
         menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(table_tree))
-        menu.add_command(label = 'Sil', command = lambda: [dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values'][0], table_tree.item(table_tree.selection())['values'][2]), tbh.filter_table_by_genre(self.genre.get(), table_tree)])
+        menu.add_command(label = 'Sil', command = lambda: [dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values']), tbh.filter_table_by_genre(self.genre.get(), table_tree)])
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:

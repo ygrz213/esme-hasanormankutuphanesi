@@ -1,3 +1,4 @@
+from tkinter import messagebox
 import sqlite3 as sql
 
 class book_db():
@@ -11,8 +12,11 @@ class book_db():
         self.cursor.execute(f'''INSERT INTO '{genre}' VALUES ('{genre}', '{self.get_last_booknumber(genre) + 1}', "{book_name}", "{writer}")''')
         self.database.commit()
 
-    def delete_book(self, genre, book_name):
-        self.cursor.execute(f'''DELETE FROM '{genre}' WHERE Ad = "{book_name}" ''')
+    def delete_book(self, values_list):
+        if not values_list:
+            messagebox.showerror('HATA', 'Kitaba erişilemedi.')
+            return
+        self.cursor.execute(f'''DELETE FROM '{values_list[0]}' WHERE Ad = "{values_list[2]}" ''')
         self.database.commit()
 
     def edit_book(self, orig_genre, genre, orig_book_name, book_name, writer):
