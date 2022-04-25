@@ -24,7 +24,7 @@ class application():
                               text = '   Kitap ekle',
                               image = add_book_icon,
                               compound = 'left',
-                              command = bkh.add_book_gui)
+                              command = lambda: bkh.add_book_gui(table_tree))
         add_book.pack(side = 'left', ipadx = 4, ipady = 2)
 
         global search_book_icon; search_book_icon = tk.PhotoImage(file = 'icons/search.png')
@@ -42,10 +42,10 @@ class application():
                                 compound = 'top')
         lent_books.pack(side = 'top', ipadx = 3, ipady = 1)
 
-        category = ttk.Combobox(values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'],
+        self.genre = ttk.Combobox(values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'],
                                 state = 'readonly')
-        category.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(category.get(), table_tree))
-        category.pack(side = 'right', anchor = 'nw')
+        self.genre.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(self.genre.get(), table_tree))
+        self.genre.pack(side = 'right', anchor = 'nw')
         tk.Label(text = 'Filtre:', bg = 'SystemButtonFace').pack(padx = 3, side = 'right', anchor = 'nw')
 
         global table_tree
@@ -58,7 +58,7 @@ class application():
     def pop_up(self, event):
         menu = tk.Menu(tearoff = 0)
         menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(table_tree))
-        menu.add_command(label = 'Sil', command = lambda: dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values'][0], table_tree.item(table_tree.selection())['values'][2]))
+        menu.add_command(label = 'Sil', command = lambda: [dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values'][0], table_tree.item(table_tree.selection())['values'][2]), tbh.filter_table_by_genre(self.genre.get(), table_tree)])
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:

@@ -16,7 +16,7 @@ def on_focusout(entry, temporary_string):
 
 
 class add_book_gui(tk.Toplevel):
-    def __init__(self):
+    def __init__(self, tree):
         tk.Toplevel.__init__(self)
         self.wm_iconbitmap('icons/book.ico')
         self.title('Esme Hasan ve Orman Kütüphanesi')
@@ -24,9 +24,9 @@ class add_book_gui(tk.Toplevel):
         self.resizable(False, False)
         self.focus()
 
-        self.widgets()
+        self.widgets(tree)
 
-    def widgets(self):
+    def widgets(self, tree):
         genre_frame = tk.Frame(self)
         genre_frame.pack()
         tk.Label(genre_frame, text = 'Tür:', bg = 'SystemButtonFace').pack(padx = (0, 5), side = 'left')
@@ -37,7 +37,7 @@ class add_book_gui(tk.Toplevel):
                               text = 'Ekle',
                               cursor = 'hand2',
                               style = "Bold.TButton",
-                              command = lambda: None if add_book_gui.check_entries(self.genre.get(), self.book_name.get(), self.writer.get()) else [dbh.dbhandler.add_book(self.genre.get(), self.book_name.get(), self.writer.get()), self.destroy()])
+                              command = lambda: None if add_book_gui.check_entries(self.genre.get(), self.book_name.get(), self.writer.get()) else [dbh.dbhandler.add_book(self.genre.get(), self.book_name.get(), self.writer.get()), tbh.filter_table_by_genre(self.genre.get(), tree), self.destroy()])
         self.add_book.pack(pady = (5, 0), side = 'bottom')
 
         self.writer = ttk.Entry(self, justify = 'center')
@@ -124,10 +124,10 @@ class edit_book_gui(add_book_gui):
                                text = 'Tamam',
                                cursor = 'hand2',
                                style = "Bold.TButton",
-                               command = lambda: [dbh.dbhandler.edit_book(self.unedited_values[0], self.genre.get(), self.unedited_values[2], self.book_name.get(), self.writer.get()), self.destroy()])
+                               command = lambda: [dbh.dbhandler.edit_book(self.unedited_values[0], self.genre.get(), self.unedited_values[2], self.book_name.get(), self.writer.get()), tbh.filter_table_by_genre(self.unedited_values[0], tree), self.destroy()])
         edit_book.pack(pady = (5, 0), side = 'bottom')
 
-        super().widgets()
+        super().widgets(tree)
 
         self.genre.current(['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'].index(self.unedited_values[0]))
 
