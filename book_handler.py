@@ -19,7 +19,7 @@ class add_book_gui(tk.Toplevel):
     def __init__(self, tree):
         tk.Toplevel.__init__(self)
         self.wm_iconbitmap('icons/book.ico')
-        self.title('Esme Hasan ve Orman Kütüphanesi')
+        self.title('Esme - Hasan Orman Kütüphanesi')
         self.attributes('-topmost', True)
         self.resizable(False, False)
         self.focus()
@@ -67,7 +67,7 @@ class add_book_gui(tk.Toplevel):
 def search_book_gui(tree_to_showresult):
     window = tk.Toplevel()
     window.wm_iconbitmap('icons/book.ico')
-    window.title('Esme Hasan ve Orman Kütüphanesi')
+    window.title('Esme - Hasan Orman Kütüphanesi')
     window.attributes('-topmost', True)
     window.resizable(False, False)
     window.focus()
@@ -105,7 +105,7 @@ class edit_book_gui(add_book_gui):
     def __init__(self, tree):
         tk.Toplevel.__init__(self)
         self.wm_iconbitmap('icons/book.ico')
-        self.title('Esme Hasan ve Orman Kütüphanesi')
+        self.title('Esme - Hasan Orman Kütüphanesi')
         self.attributes('-topmost', True)
         self.resizable(False, False)
         self.focus()

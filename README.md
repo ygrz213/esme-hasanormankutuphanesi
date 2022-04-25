@@ -1,4 +1,4 @@
-# esmehasanveormankutuphanesi
+# esme-hasanormankutuphanesi
 
 Okul kütüphanesi yönetimi uygulaması.
 

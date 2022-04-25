@@ -10,7 +10,7 @@ class application():
     def __init__(self, master):
         self.master = master
         self.master.wm_iconbitmap('icons/book.ico')
-        self.master.title('Esme Hasan ve Orman Kütüphanesi')
+        self.master.title('Esme - Hasan Orman Kütüphanesi')
         self.master.protocol('WM_DELETE_WINDOW', self.delete_cache)
 
         self.widgets()
