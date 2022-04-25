@@ -35,7 +35,7 @@ satırlarını `main.py` ve `book_handler.py`'nin başına ekleyin.
 ve
 
 ```python
-        global x_book*_icon; x_book*_icon = tk.PhotoImage(file = 'icons/z.png')        # x (add, search, lend) * (hiçbir şey veya s) z (plus, search, lend)
+        self.x_book*_icon = tk.PhotoImage(file = 'icons/z.png')        # x (add, search, lend) * (hiçbir şey veya s) z (plus, search, lend)
 ```
 
 kısımlarını sırasıyla
@@ -49,7 +49,7 @@ kısımlarını sırasıyla
             datafilex = os.path.join(os.path.dirname(__file__), "z.png")        # datafilex değişkeninin adı birden fazla fotoğraf için değiştirilebilir
         else:
             datafilex = os.path.join(sys.prefix, "z.png")
-        global x_book*_icon; x_book*_icon = tk.PhotoImage(file = resource_path(datafilex))
+        self.x_book*_icon = tk.PhotoImage(file = resource_path(datafilex))
 ```
 
 olarak değiştirin.

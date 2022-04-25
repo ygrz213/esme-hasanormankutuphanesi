@@ -19,46 +19,45 @@ class application():
         button_frame = tk.Frame(self.master)
         button_frame.pack(side = 'top', fill = 'x')
 
-        global add_book_icon; add_book_icon = tk.PhotoImage(file = 'icons/plus.png')
+        self.add_book_icon = tk.PhotoImage(file = 'icons/plus.png')
         add_book = ttk.Button(button_frame,
                               text = '   Kitap ekle',
-                              image = add_book_icon,
+                              image = self.add_book_icon,
                               compound = 'left',
-                              command = lambda: bkh.add_book_gui(table_tree))
+                              command = lambda: bkh.add_book_gui(self.table_tree))
         add_book.pack(side = 'left', ipadx = 4, ipady = 2)
 
-        global search_book_icon; search_book_icon = tk.PhotoImage(file = 'icons/search.png')
+        self.search_book_icon = tk.PhotoImage(file = 'icons/search.png')
         search_book = ttk.Button(button_frame,
                                  text = 'Kitap ara   ',
-                                 image = search_book_icon,
+                                 image = self.search_book_icon,
                                  compound = 'right',
-                                 command = lambda: bkh.search_book_gui(table_tree))
+                                 command = lambda: bkh.search_book_gui(self.table_tree))
         search_book.pack(side = 'right', ipadx = 3, ipady = 1)
 
-        global lent_books_icon; lent_books_icon = tk.PhotoImage(file = 'icons/lend.png')
+        self.lent_books_icon = tk.PhotoImage(file = 'icons/lend.png')
         lent_books = ttk.Button(button_frame,
                                 text = 'Ödünç verilmiş kitaplar',
-                                image = lent_books_icon,
+                                image = self.lent_books_icon,
                                 compound = 'top')
         lent_books.pack(side = 'top', ipadx = 3, ipady = 1)
 
         self.genre = ttk.Combobox(values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'],
-                                state = 'readonly')
-        self.genre.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(self.genre.get(), table_tree))
+                                  state = 'readonly')
+        self.genre.bind('<<ComboboxSelected>>', lambda x: tbh.filter_table_by_genre(self.genre.get(), self.table_tree))
         self.genre.pack(side = 'right', anchor = 'nw')
         tk.Label(text = 'Filtre:', bg = 'SystemButtonFace').pack(padx = 3, side = 'right', anchor = 'nw')
 
-        global table_tree
-        table_tree = ttk.Treeview(columns = ('Tür', 'Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
-        table_tree.heading('Tür', text = 'Tür'); table_tree.heading('Numara', text = 'Numara'); table_tree.heading('Kitap adı', text = 'Kitap adı'); table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
-        table_tree.column('Tür', anchor = 'center'); table_tree.column('Numara', anchor = 'center'); table_tree.column('Kitap adı', anchor = 'center'); table_tree.column('Yazar veya Çeviren', anchor = 'center')
-        table_tree.bind('<Button-3>', self.pop_up)
-        table_tree.pack(fill = 'both', expand = True)
+        self.table_tree = ttk.Treeview(columns = ('Tür', 'Numara', 'Kitap adı', 'Yazar veya Çeviren'), show = 'headings')
+        self.table_tree.heading('Tür', text = 'Tür'); self.table_tree.heading('Numara', text = 'Numara'); self.table_tree.heading('Kitap adı', text = 'Kitap adı'); self.table_tree.heading('Yazar veya Çeviren', text = 'Yazar veya Çeviren')
+        self.table_tree.column('Tür', anchor = 'center'); self.table_tree.column('Numara', anchor = 'center'); self.table_tree.column('Kitap adı', anchor = 'center'); self.table_tree.column('Yazar veya Çeviren', anchor = 'center')
+        self.table_tree.bind('<Button-3>', self.pop_up)
+        self.table_tree.pack(fill = 'both', expand = True)
 
     def pop_up(self, event):
         menu = tk.Menu(tearoff = 0)
-        menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(table_tree))
-        menu.add_command(label = 'Sil', command = lambda: [dbh.dbhandler.delete_book(table_tree.item(table_tree.selection())['values']), tbh.filter_table_by_genre(self.genre.get(), table_tree)])
+        menu.add_command(label = 'Düzenle', command = lambda: bkh.edit_book_gui(self.table_tree))
+        menu.add_command(label = 'Sil', command = lambda: [dbh.dbhandler.delete_book(self.table_tree.item(self.table_tree.selection())['values']), tbh.filter_table_by_genre(self.genre.get(), self.table_tree)])
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:

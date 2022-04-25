@@ -42,18 +42,20 @@ class add_book_gui(tk.Toplevel):
 
         self.writer = ttk.Entry(self, justify = 'center')
         self.writer.insert(0, 'Yazarın veya çevirenin adı')
-        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, 'Yazarın veya çevirenin adı')); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, 'Yazarın veya çevirenin adı'))
+        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, 'Yazarın veya çevirenin adı'))
+        self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, 'Yazarın veya çevirenin adı'))
         self.writer.pack(fill = 'x', side = 'bottom')
 
         self.book_name = ttk.Entry(self, justify = 'center')
         self.book_name.insert(0, 'Kitap adı')
-        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, 'Kitap adı')); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, 'Kitap adı'))
+        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, 'Kitap adı'))
+        self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, 'Kitap adı'))
         self.book_name.pack(fill = 'x', side = 'bottom')
 
-    def check_entries(genre, book_name, writer):
+    def check_entries(*args):
         empty_entries_list = []
 
-        for empty_entries in set(['', 'Kitap adı', 'Yazarın veya çevirenin adı']) & set([genre, book_name, writer]):
+        for empty_entries in set(['', 'Kitap adı', 'Yazarın veya çevirenin adı']) & set([*args]):
             if empty_entries == '':
                 empty_entries_list.append('Tür')
             else:
@@ -74,23 +76,26 @@ def search_book_gui(tree_to_showresult):
 
     genre_frame = tk.Frame(window)
     genre_frame.pack()
-    ttk.Label(genre_frame, text = 'Tür:').pack(padx = (0, 5), side = 'left')
+    tk.Label(genre_frame, text = 'Tür:', bg = 'SystemButtonFace').pack(padx = (0, 5), side = 'left')
     genre = ttk.Combobox(genre_frame, state = 'readonly', values = ['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'])
     genre.pack(side = 'left')
 
     number = ttk.Entry(window, justify = 'center')
     number.insert(0, 'Numara')
-    number.bind('<FocusIn>', lambda x: on_entry_click(number, 'Numara')); number.bind('<FocusOut>', lambda x: on_focusout(number, 'Numara'))
+    number.bind('<FocusIn>', lambda x: on_entry_click(number, 'Numara'))
+    number.bind('<FocusOut>', lambda x: on_focusout(number, 'Numara'))
     number.pack(fill = 'x')
 
     book_name = ttk.Entry(window, justify = 'center')
     book_name.insert(0, 'Kitap adı')
-    book_name.bind('<FocusIn>', lambda x: on_entry_click(book_name, 'Kitap adı')); book_name.bind('<FocusOut>', lambda x: on_focusout(book_name, 'Kitap adı'))
+    book_name.bind('<FocusIn>', lambda x: on_entry_click(book_name, 'Kitap adı'))
+    book_name.bind('<FocusOut>', lambda x: on_focusout(book_name, 'Kitap adı'))
     book_name.pack(fill = 'x')
 
     writer = ttk.Entry(window, justify = 'center')
     writer.insert(0, 'Yazarın veya çevirenin adı')
-    writer.bind('<FocusIn>', lambda x: on_entry_click(writer, 'Yazarın veya çevirenin adı')); writer.bind('<FocusOut>', lambda x: on_focusout(writer, 'Yazarın veya çevirenin adı'))
+    writer.bind('<FocusIn>', lambda x: on_entry_click(writer, 'Yazarın veya çevirenin adı'))
+    writer.bind('<FocusOut>', lambda x: on_focusout(writer, 'Yazarın veya çevirenin adı'))
     writer.pack(fill = 'x')
 
     search_book = ttk.Button(window,
@@ -132,9 +137,11 @@ class edit_book_gui(add_book_gui):
         self.genre.current(['Çocuk', 'Dinî', 'Hikâye', 'Roman', 'Şiir', 'Tarihî', 'Yetişkin'].index(self.unedited_values[0]))
 
         self.writer.delete(0, 'end'); self.writer.insert(0, self.unedited_values[3])
-        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, self.unedited_values[3])); self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, self.unedited_values[3]))
+        self.writer.bind('<FocusIn>', lambda x: on_entry_click(self.writer, self.unedited_values[3]))
+        self.writer.bind('<FocusOut>', lambda x: on_focusout(self.writer, self.unedited_values[3]))
 
         self.book_name.delete(0, 'end'); self.book_name.insert(0, self.unedited_values[2])
-        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, self.unedited_values[2])); self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, self.unedited_values[2]))
+        self.book_name.bind('<FocusIn>', lambda x: on_entry_click(self.book_name, self.unedited_values[2]))
+        self.book_name.bind('<FocusOut>', lambda x: on_focusout(self.book_name, self.unedited_values[2]))
 
         self.add_book.destroy()
