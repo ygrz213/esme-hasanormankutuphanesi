@@ -22,7 +22,7 @@ class book_db():
     def edit_book(self, orig_genre, genre, orig_book_name, book_name, writer):
         if orig_genre != genre:        # If genre is changed
             self.add_book(genre, book_name, writer)
-            self.delete_book(orig_genre, orig_book_name)
+            self.delete_book([orig_genre, 'fake', orig_book_name])
         else:
             self.cursor.execute(f'''UPDATE {orig_genre} SET Tür = '{genre}', Ad = "{book_name}", Yazar = "{writer}" WHERE Ad = "{orig_book_name}" ''')
         self.database.commit()
